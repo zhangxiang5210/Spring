@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class PageList<T> implements Serializable {
-	
+	 
 	public PageList() {
 
 	}
