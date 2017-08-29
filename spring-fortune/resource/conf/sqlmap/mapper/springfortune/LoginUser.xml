@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.LoginUserMapper">
+
+	<resultMap id="LoginUser" type="org.jrc.springfortune.entity.LoginUser">
+		<result property="id" column="ID"/>
+		<result property="loginName" column="LOGIN_NAME"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="phone" column="PHONE"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="lastLoginTime" column="LAST_LOGIN_TIME"/>
+		<result property="lastLoginIp" column="LAST_LOGIN_IP"/>
+		<result property="status" column="STATUS"/>
+		<result property="regsiterTime" column="REGSITER_TIME"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.LoginUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO LOGIN_USER ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="loginName != null"> ,LOGIN_NAME </if>	
+			<if test="password != null"> ,PASSWORD </if>	
+			<if test="phone != null"> ,PHONE </if>	
+			<if test="userType != null"> ,USER_TYPE </if>	
+			<if test="lastLoginTime != null"> ,LAST_LOGIN_TIME </if>	
+			<if test="lastLoginIp != null"> ,LAST_LOGIN_IP </if>	
+			<if test="status != null"> ,STATUS </if>	
+			<if test="regsiterTime != null"> ,REGSITER_TIME </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="loginName != null"> ,#{loginName} </if>		       
+			<if test="password != null"> ,#{password} </if>		       
+			<if test="phone != null"> ,#{phone} </if>		       
+			<if test="userType != null"> ,#{userType} </if>		       
+			<if test="lastLoginTime != null"> ,#{lastLoginTime} </if>		       
+			<if test="lastLoginIp != null"> ,#{lastLoginIp} </if>		       
+			<if test="status != null"> ,#{status} </if>		       
+			<if test="regsiterTime != null"> ,#{regsiterTime} </if>		       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM LOGIN_USER
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.LoginUser">  
+		UPDATE LOGIN_USER        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="loginName != null"> LOGIN_NAME = #{loginName}, </if>
+			<if test="password != null"> PASSWORD = #{password}, </if>
+			<if test="phone != null"> PHONE = #{phone}, </if>
+			<if test="userType != null"> USER_TYPE = #{userType}, </if>
+			<if test="lastLoginTime != null"> LAST_LOGIN_TIME = #{lastLoginTime}, </if>
+			<if test="lastLoginIp != null"> LAST_LOGIN_IP = #{lastLoginIp}, </if>
+			<if test="status != null"> STATUS = #{status}, </if>
+			<if test="regsiterTime != null"> REGSITER_TIME = #{regsiterTime}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="LoginUser">  
+		SELECT 
+			ID,
+			LOGIN_NAME,
+			PASSWORD,
+			PHONE,
+			USER_TYPE,
+			LAST_LOGIN_TIME,
+			LAST_LOGIN_IP,
+			STATUS,
+			REGSITER_TIME
+		FROM LOGIN_USER
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="LoginUser">  
+		SELECT 
+			ID,
+			LOGIN_NAME,
+			PASSWORD,
+			PHONE,
+			USER_TYPE,
+			LAST_LOGIN_TIME,
+			LAST_LOGIN_IP,
+			STATUS,
+			REGSITER_TIME
+		FROM LOGIN_USER
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="loginName != null"> AND LOGIN_NAME = #{loginName} </if>
+			<if test="password != null"> AND PASSWORD = #{password} </if>
+			<if test="phone != null"> AND PHONE = #{phone} </if>
+			<if test="userType != null"> AND USER_TYPE = #{userType} </if>
+			<if test="lastLoginTime != null"> AND LAST_LOGIN_TIME = #{lastLoginTime} </if>
+			<if test="lastLoginIp != null"> AND LAST_LOGIN_IP = #{lastLoginIp} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="regsiterTime != null"> AND REGSITER_TIME = #{regsiterTime} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM LOGIN_USER
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="loginName != null"> AND LOGIN_NAME = #{loginName} </if>
+			<if test="password != null"> AND PASSWORD = #{password} </if>
+			<if test="phone != null"> AND PHONE = #{phone} </if>
+			<if test="userType != null"> AND USER_TYPE = #{userType} </if>
+			<if test="lastLoginTime != null"> AND LAST_LOGIN_TIME = #{lastLoginTime} </if>
+			<if test="lastLoginIp != null"> AND LAST_LOGIN_IP = #{lastLoginIp} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="regsiterTime != null"> AND REGSITER_TIME = #{regsiterTime} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="LoginUser" >  
+		SELECT 
+			ID,
+			LOGIN_NAME,
+			PASSWORD,
+			PHONE,
+			USER_TYPE,
+			LAST_LOGIN_TIME,
+			LAST_LOGIN_IP,
+			STATUS,
+			REGSITER_TIME
+		FROM LOGIN_USER
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="loginName != null"> AND LOGIN_NAME = #{loginName} </if>
+			<if test="password != null"> AND PASSWORD = #{password} </if>
+			<if test="phone != null"> AND PHONE = #{phone} </if>
+			<if test="userType != null"> AND USER_TYPE = #{userType} </if>
+			<if test="lastLoginTime != null"> AND LAST_LOGIN_TIME = #{lastLoginTime} </if>
+			<if test="lastLoginIp != null"> AND LAST_LOGIN_IP = #{lastLoginIp} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="regsiterTime != null"> AND REGSITER_TIME = #{regsiterTime} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+
+
+</mapper>

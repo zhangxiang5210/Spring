@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.AnnexMapper">
+
+	<resultMap id="Annex" type="org.jrc.springfortune.entity.Annex">
+		<result property="id" column="ID"/>
+		<result property="annexCategorycode" column="ANNEX_CATEGORYCODE"/>
+		<result property="objId" column="OBJ_ID"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileSize" column="FILE_SIZE"/>
+		<result property="fileType" column="FILE_TYPE"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="creator" column="CREATOR"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.Annex" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO ANNEX ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="annexCategorycode != null"> ,ANNEX_CATEGORYCODE </if>	
+			<if test="objId != null"> ,OBJ_ID </if>	
+			<if test="filePath != null"> ,FILE_PATH </if>	
+			<if test="fileName != null"> ,FILE_NAME </if>	
+			<if test="fileSize != null"> ,FILE_SIZE </if>	
+			<if test="fileType != null"> ,FILE_TYPE </if>	
+			<if test="createTime != null"> ,CREATE_TIME </if>	
+			<if test="creator != null"> ,CREATOR </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="annexCategorycode != null"> ,#{annexCategorycode} </if>		       
+			<if test="objId != null"> ,#{objId} </if>		       
+			<if test="filePath != null"> ,#{filePath} </if>		       
+			<if test="fileName != null"> ,#{fileName} </if>		       
+			<if test="fileSize != null"> ,#{fileSize} </if>		       
+			<if test="fileType != null"> ,#{fileType} </if>		       
+			<if test="createTime != null"> ,#{createTime} </if>		       
+			<if test="creator != null"> ,#{creator} </if>		       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM ANNEX
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.Annex">  
+		UPDATE ANNEX        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="annexCategorycode != null"> ANNEX_CATEGORYCODE = #{annexCategorycode}, </if>
+			<if test="objId != null"> OBJ_ID = #{objId}, </if>
+			<if test="filePath != null"> FILE_PATH = #{filePath}, </if>
+			<if test="fileName != null"> FILE_NAME = #{fileName}, </if>
+			<if test="fileSize != null"> FILE_SIZE = #{fileSize}, </if>
+			<if test="fileType != null"> FILE_TYPE = #{fileType}, </if>
+			<if test="createTime != null"> CREATE_TIME = #{createTime}, </if>
+			<if test="creator != null"> CREATOR = #{creator}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="Annex">  
+		SELECT 
+			ID,
+			ANNEX_CATEGORYCODE,
+			OBJ_ID,
+			FILE_PATH,
+			FILE_NAME,
+			FILE_SIZE,
+			FILE_TYPE,
+			CREATE_TIME,
+			CREATOR
+		FROM ANNEX
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="Annex">  
+		SELECT 
+			ID,
+			ANNEX_CATEGORYCODE,
+			OBJ_ID,
+			FILE_PATH,
+			FILE_NAME,
+			FILE_SIZE,
+			FILE_TYPE,
+			CREATE_TIME,
+			CREATOR
+		FROM ANNEX
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="annexCategorycode != null"> AND ANNEX_CATEGORYCODE = #{annexCategorycode} </if>
+			<if test="objId != null"> AND OBJ_ID = #{objId} </if>
+			<if test="filePath != null"> AND FILE_PATH = #{filePath} </if>
+			<if test="fileName != null"> AND FILE_NAME = #{fileName} </if>
+			<if test="fileSize != null"> AND FILE_SIZE = #{fileSize} </if>
+			<if test="fileType != null"> AND FILE_TYPE = #{fileType} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM ANNEX
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="annexCategorycode != null"> AND ANNEX_CATEGORYCODE = #{annexCategorycode} </if>
+			<if test="objId != null"> AND OBJ_ID = #{objId} </if>
+			<if test="filePath != null"> AND FILE_PATH = #{filePath} </if>
+			<if test="fileName != null"> AND FILE_NAME = #{fileName} </if>
+			<if test="fileSize != null"> AND FILE_SIZE = #{fileSize} </if>
+			<if test="fileType != null"> AND FILE_TYPE = #{fileType} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="Annex" >  
+		SELECT 
+			ID,
+			ANNEX_CATEGORYCODE,
+			OBJ_ID,
+			FILE_PATH,
+			FILE_NAME,
+			FILE_SIZE,
+			FILE_TYPE,
+			CREATE_TIME,
+			CREATOR
+		FROM ANNEX
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="annexCategorycode != null"> AND ANNEX_CATEGORYCODE = #{annexCategorycode} </if>
+			<if test="objId != null"> AND OBJ_ID = #{objId} </if>
+			<if test="filePath != null"> AND FILE_PATH = #{filePath} </if>
+			<if test="fileName != null"> AND FILE_NAME = #{fileName} </if>
+			<if test="fileSize != null"> AND FILE_SIZE = #{fileSize} </if>
+			<if test="fileType != null"> AND FILE_TYPE = #{fileType} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.LoginLogMapper">
+
+	<resultMap id="LoginLog" type="org.jrc.springfortune.entity.LoginLog">
+		<result property="id" column="ID"/>
+		<result property="loginName" column="LOGIN_NAME"/>
+		<result property="loginDate" column="LOGIN_DATE"/>
+		<result property="loginIp" column="LOGIN_IP"/>
+		<result property="browserInfo" column="BROWSER_INFO"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.LoginLog" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO LOGIN_LOG ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="loginName != null"> ,LOGIN_NAME </if>	
+			<if test="loginDate != null"> ,LOGIN_DATE </if>	
+			<if test="loginIp != null"> ,LOGIN_IP </if>	
+			<if test="browserInfo != null"> ,BROWSER_INFO </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="loginName != null"> ,#{loginName} </if>		       
+			<if test="loginDate != null"> ,#{loginDate} </if>		       
+			<if test="loginIp != null"> ,#{loginIp} </if>		       
+			<if test="browserInfo != null"> ,#{browserInfo} </if>		       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM LOGIN_LOG
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.LoginLog">  
+		UPDATE LOGIN_LOG        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="loginName != null"> LOGIN_NAME = #{loginName}, </if>
+			<if test="loginDate != null"> LOGIN_DATE = #{loginDate}, </if>
+			<if test="loginIp != null"> LOGIN_IP = #{loginIp}, </if>
+			<if test="browserInfo != null"> BROWSER_INFO = #{browserInfo}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="LoginLog">  
+		SELECT 
+			ID,
+			LOGIN_NAME,
+			LOGIN_DATE,
+			LOGIN_IP,
+			BROWSER_INFO
+		FROM LOGIN_LOG
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="LoginLog">  
+		SELECT 
+			ID,
+			LOGIN_NAME,
+			LOGIN_DATE,
+			LOGIN_IP,
+			BROWSER_INFO
+		FROM LOGIN_LOG
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="loginName != null"> AND LOGIN_NAME = #{loginName} </if>
+			<if test="loginDate != null"> AND LOGIN_DATE = #{loginDate} </if>
+			<if test="loginIp != null"> AND LOGIN_IP = #{loginIp} </if>
+			<if test="browserInfo != null"> AND BROWSER_INFO = #{browserInfo} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM LOGIN_LOG
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="loginName != null"> AND LOGIN_NAME = #{loginName} </if>
+			<if test="loginDate != null"> AND LOGIN_DATE = #{loginDate} </if>
+			<if test="loginIp != null"> AND LOGIN_IP = #{loginIp} </if>
+			<if test="browserInfo != null"> AND BROWSER_INFO = #{browserInfo} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="LoginLog" >  
+		SELECT 
+			ID,
+			LOGIN_NAME,
+			LOGIN_DATE,
+			LOGIN_IP,
+			BROWSER_INFO
+		FROM LOGIN_LOG
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="loginName != null"> AND LOGIN_NAME = #{loginName} </if>
+			<if test="loginDate != null"> AND LOGIN_DATE = #{loginDate} </if>
+			<if test="loginIp != null"> AND LOGIN_IP = #{loginIp} </if>
+			<if test="browserInfo != null"> AND BROWSER_INFO = #{browserInfo} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+
+
+</mapper>

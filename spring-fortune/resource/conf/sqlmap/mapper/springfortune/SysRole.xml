@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.SysRoleMapper">
+
+	<resultMap id="SysRole" type="org.jrc.springfortune.entity.SysRole">
+		<result property="id" column="ID"/>
+		<result property="roleName" column="ROLE_NAME"/>
+		<result property="roleMemo" column="ROLE_MEMO"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="creator" column="CREATOR"/>
+		<result property="modifyTime" column="MODIFY_TIME"/>
+		<result property="modifier" column="MODIFIER"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO SYS_ROLE ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="roleName != null"> ,ROLE_NAME </if>	
+			<if test="roleMemo != null"> ,ROLE_MEMO </if>	
+			<if test="createTime != null"> ,CREATE_TIME </if>	
+			<if test="creator != null"> ,CREATOR </if>	
+			<if test="modifyTime != null"> ,MODIFY_TIME </if>	
+			<if test="modifier != null"> ,MODIFIER </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="roleName != null"> ,#{roleName} </if>		       
+			<if test="roleMemo != null"> ,#{roleMemo} </if>		       
+			<if test="createTime != null"> ,#{createTime} </if>		       
+			<if test="creator != null"> ,#{creator} </if>		       
+			<if test="modifyTime != null"> ,#{modifyTime} </if>		       
+			<if test="modifier != null"> ,#{modifier} </if>		       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM SYS_ROLE
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.SysRole">  
+		UPDATE SYS_ROLE        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="roleName != null"> ROLE_NAME = #{roleName}, </if>
+			<if test="roleMemo != null"> ROLE_MEMO = #{roleMemo}, </if>
+			<if test="createTime != null"> CREATE_TIME = #{createTime}, </if>
+			<if test="creator != null"> CREATOR = #{creator}, </if>
+			<if test="modifyTime != null"> MODIFY_TIME = #{modifyTime}, </if>
+			<if test="modifier != null"> MODIFIER = #{modifier}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="SysRole">  
+		SELECT 
+			ID,
+			ROLE_NAME,
+			ROLE_MEMO,
+			CREATE_TIME,
+			CREATOR,
+			MODIFY_TIME,
+			MODIFIER
+		FROM SYS_ROLE
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="SysRole">  
+		SELECT 
+			ID,
+			ROLE_NAME,
+			ROLE_MEMO,
+			CREATE_TIME,
+			CREATOR,
+			MODIFY_TIME,
+			MODIFIER
+		FROM SYS_ROLE
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="roleName != null"> AND ROLE_NAME = #{roleName} </if>
+			<if test="roleMemo != null"> AND ROLE_MEMO = #{roleMemo} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime} </if>
+			<if test="modifier != null"> AND MODIFIER = #{modifier} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM SYS_ROLE
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="roleName != null"> AND ROLE_NAME = #{roleName} </if>
+			<if test="roleMemo != null"> AND ROLE_MEMO = #{roleMemo} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime} </if>
+			<if test="modifier != null"> AND MODIFIER = #{modifier} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="SysRole" >  
+		SELECT 
+			ID,
+			ROLE_NAME,
+			ROLE_MEMO,
+			CREATE_TIME,
+			CREATOR,
+			MODIFY_TIME,
+			MODIFIER
+		FROM SYS_ROLE
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="roleName != null"> AND ROLE_NAME = #{roleName} </if>
+			<if test="roleMemo != null"> AND ROLE_MEMO = #{roleMemo} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="modifyTime != null"> AND MODIFY_TIME = #{modifyTime} </if>
+			<if test="modifier != null"> AND MODIFIER = #{modifier} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.OrderFoodsMapper">
+
+	<resultMap id="OrderFoods" type="org.jrc.springfortune.entity.OrderFoods">
+		<result property="id" column="ID"/>
+		<result property="typeName" column="TYPE_NAME"/>
+		<result property="name" column="NAME"/>
+		<result property="nameNumber" column="NAME_NUMBER"/>
+		<result property="num" column="NUM"/>
+		<result property="price" column="PRICE"/>
+		<result property="status" column="STATUS"/>
+		<result property="creator" column="CREATOR"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="memo" column="MEMO"/>
+		<result property="billId" column="BILL_ID"/>
+		<result property="menuId" column="MENU_ID"/>
+		<result property="unit" column="UNIT"/>
+		<result property="operationPerson" column="OPERATION_PERSON"/>
+		<result property="delPerson" column="DEL_PERSON"/>
+		<result property="payStatus" column="PAY_STATUS"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.OrderFoods" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO ORDER_FOODS ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="typeName != null"> ,TYPE_NAME </if>	
+			<if test="name != null"> ,NAME </if>	
+			<if test="nameNumber != null"> ,NAME_NUMBER </if>	
+			<if test="num != null"> ,NUM </if>	
+			<if test="price != null"> ,PRICE </if>	
+			<if test="status != null"> ,STATUS </if>	
+			<if test="creator != null"> ,CREATOR </if>	
+			<if test="createTime != null"> ,CREATE_TIME </if>	
+			<if test="memo != null"> ,MEMO </if>	
+			<if test="billId != null"> ,BILL_ID </if>	
+			<if test="menuId != null"> ,MENU_ID </if>	
+			<if test="unit != null"> ,UNIT </if>	
+			<if test="operationPerson != null"> ,OPERATION_PERSON </if>	
+			<if test="delPerson != null"> ,DEL_PERSON </if>	
+			<if test="payStatus != null"> ,PAY_STATUS </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="typeName != null"> ,#{typeName} </if>		       
+			<if test="name != null"> ,#{name} </if>		       
+			<if test="nameNumber != null"> ,#{nameNumber} </if>		       
+			<if test="num != null"> ,#{num} </if>		       
+			<if test="price != null"> ,#{price} </if>		       
+			<if test="status != null"> ,#{status} </if>		       
+			<if test="creator != null"> ,#{creator} </if>		       
+			<if test="createTime != null"> ,#{createTime} </if>		       
+			<if test="memo != null"> ,#{memo} </if>		       
+			<if test="billId != null"> ,#{billId} </if>		       
+			<if test="menuId != null"> ,#{menuId} </if>	
+			<if test="unit != null"> ,#{unit} </if>		 
+			<if test="operationPerson != null"> ,#{operationPerson} </if>		       
+			<if test="delPerson != null"> ,#{delPerson} </if>	
+			<if test="payStatus != null"> ,#{payStatus} </if>		      
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM ORDER_FOODS
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.OrderFoods">  
+		UPDATE ORDER_FOODS        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="typeName != null"> TYPE_NAME = #{typeName}, </if>
+			<if test="name != null"> NAME = #{name}, </if>
+			<if test="nameNumber != null"> NAME_NUMBER = #{nameNumber}, </if>
+			<if test="num != null"> NUM = #{num}, </if>
+			<if test="price != null"> PRICE = #{price}, </if>
+			<if test="status != null"> STATUS = #{status}, </if>
+			<if test="creator != null"> CREATOR = #{creator}, </if>
+			<if test="createTime != null"> CREATE_TIME = #{createTime}, </if>
+			<if test="memo != null"> MEMO = #{memo}, </if>
+			<if test="billId != null"> BILL_ID = #{billId}, </if>
+			<if test="menuId != null"> MENU_ID = #{menuId}, </if>
+			<if test="unit != null"> UNIT = #{unit}, </if>
+			<if test="operationPerson != null"> OPERATION_PERSON = #{operationPerson}, </if>
+			<if test="delPerson != null"> DEL_PERSON = #{delPerson}, </if>
+			<if test="payStatus != null"> PAY_STATUS = #{payStatus}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="OrderFoods">  
+		SELECT 
+			ID,
+			TYPE_NAME,
+			NAME,
+			NAME_NUMBER,
+			NUM,
+			PRICE,
+			STATUS,
+			CREATOR,
+			CREATE_TIME,
+			MEMO,
+			BILL_ID,
+			MENU_ID,
+			UNIT,
+			OPERATION_PERSON,
+			DEL_PERSON,
+			PAY_STATUS
+		FROM ORDER_FOODS
+		<where>
+			<if test="id != null">AND ID = #{id} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="OrderFoods">  
+		SELECT 
+			ID,
+			TYPE_NAME,
+			NAME,
+			NAME_NUMBER,
+			NUM,
+			PRICE,
+			STATUS,
+			CREATOR,
+			CREATE_TIME,
+			MEMO,
+			BILL_ID,
+			MENU_ID,
+			UNIT,
+			OPERATION_PERSON,
+			DEL_PERSON,
+			PAY_STATUS
+		FROM ORDER_FOODS
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="typeName != null"> AND TYPE_NAME = #{typeName} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="nameNumber != null"> AND NAME_NUMBER = #{nameNumber} </if>
+			<if test="num != null"> AND NUM = #{num} </if>
+			<if test="price != null"> AND PRICE = #{price} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="menuId != null"> AND MENU_ID = #{menuId} </if>
+			<if test="unit != null"> AND UNIT = #{unit} </if>
+			<if test="operationPerson != null"> AND OPERATION_PERSON = #{operationPerson} </if>
+			<if test="delPerson != null"> AND DEL_PERSON = #{delPerson} </if>
+			<if test="payStatus != null"> AND PAY_STATUS = #{payStatus} </if>
+			<if test="noDel != null"> AND STATUS != 9</if>
+			<if test="startDate != null"> AND CREATE_TIME <![CDATA[ >= ]]> #{startDate} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM ORDER_FOODS
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="typeName != null"> AND TYPE_NAME = #{typeName} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="nameNumber != null"> AND NAME_NUMBER = #{nameNumber} </if>
+			<if test="num != null"> AND NUM = #{num} </if>
+			<if test="price != null"> AND PRICE = #{price} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="menuId != null"> AND MENU_ID = #{menuId} </if>
+			<if test="unit != null"> AND UNIT = #{unit} </if>
+			<if test="operationPerson != null"> AND OPERATION_PERSON = #{operationPerson} </if>
+			<if test="delPerson != null"> AND DEL_PERSON = #{delPerson} </if>
+			<if test="payStatus != null"> AND PAY_STATUS = #{payStatus} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="OrderFoods" >  
+		SELECT 
+			ID,
+			TYPE_NAME,
+			NAME,
+			NAME_NUMBER,
+			NUM,
+			PRICE,
+			STATUS,
+			CREATOR,
+			CREATE_TIME,
+			MEMO,
+			BILL_ID,
+			MENU_ID,
+			UNIT,
+			OPERATION_PERSON,
+			DEL_PERSON,
+			PAY_STATUS
+		FROM ORDER_FOODS
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="typeName != null"> AND TYPE_NAME = #{typeName} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="nameNumber != null"> AND NAME_NUMBER = #{nameNumber} </if>
+			<if test="num != null"> AND NUM = #{num} </if>
+			<if test="price != null"> AND PRICE = #{price} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="menuId != null"> AND MENU_ID = #{menuId} </if>
+			<if test="unit != null"> AND UNIT = #{unit} </if>
+			<if test="operationPerson != null"> AND OPERATION_PERSON = #{operationPerson} </if>
+			<if test="payStatus != null"> AND PAY_STATUS = #{payStatus} </if>
+			<if test="delPerson != null"> AND DEL_PERSON = #{delPerson} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+	
+	<resultMap type="java.util.Map" id="simpleInfo" >
+		<result property="typeName" column="TYPE_NAME"/>
+		<result property="name" column="NAME"/>
+		<result property="nameNumber" column="NAME_NUMBER"/>
+		<result property="price" column="PRICE"/>
+		<result property="status" column="STATUS"/>
+		<result property="unit" column="UNIT"/>
+		<result property="operationPerson" column="OPERATION_PERSON"/>
+		<result property="payStatus" column="PAY_STATUS"/>
+		<result property="totalNum" column="TOTAL_NUM"/>
+		<result property="menuId" column="MENU_ID"/>
+	</resultMap>
+	
+	<select id="getSimpleInfoPage" parameterType="java.util.Map" resultMap="simpleInfo">
+		SELECT 
+			TYPE_NAME,
+			NAME,
+			NAME_NUMBER,
+			PRICE,
+			STATUS,
+			UNIT,
+			OPERATION_PERSON,
+			PAY_STATUS,
+			SUM(NUM) AS TOTAL_NUM,
+			MENU_ID
+		FROM ORDER_FOODS 
+		<where>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="payStatus != null"> AND PAY_STATUS = #{payStatus} </if>
+			<if test="startDate != null"> AND CREATE_TIME <![CDATA[ >= ]]> #{startDate} </if>
+	 		<if test="endDate != null"> AND CREATE_TIME <![CDATA[ <= ]]> #{endDate} </if>
+			<if test="noDel != null"> AND STATUS != 9</if>
+		</where>
+		GROUP BY MENU_ID,STATUS
+		Limit #{startrow} , #{pagesize}
+	</select>
+	
+	<select id="getSimpleInfoPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM
+		(
+			SELECT 
+			TYPE_NAME,
+			NAME,
+			NAME_NUMBER,
+			PRICE,
+			STATUS,
+			UNIT,
+			OPERATION_PERSON,
+			PAY_STATUS,
+			SUM(NUM) AS TOTAL_NUM,
+			MENU_ID
+		FROM ORDER_FOODS
+		<where>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="payStatus != null"> AND PAY_STATUS = #{payStatus} </if>
+			<if test="startDate != null"> AND CREATE_TIME <![CDATA[ >= ]]> #{startDate} </if>
+	 		<if test="endDate != null"> AND CREATE_TIME <![CDATA[ <= ]]> #{endDate} </if>
+			<if test="noDel != null"> AND STATUS != 9</if>
+		</where>
+		GROUP BY MENU_ID,STATUS
+		) A
+		
+	</select>
+
+
+</mapper>

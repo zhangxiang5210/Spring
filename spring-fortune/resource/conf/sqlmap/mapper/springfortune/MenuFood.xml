@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.MenuFoodMapper">
+
+	<resultMap id="MenuFood" type="org.jrc.springfortune.entity.MenuFood">
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="nameNumber" column="NAME_NUMBER"/>
+		<result property="memo" column="MEMO"/>
+		<result property="price" column="PRICE"/>
+		<result property="creator" column="CREATOR"/>
+		<result property="modifer" column="MODIFER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="editTime" column="EDIT_TIME"/>
+		<result property="menuTypeId" column="MENU_TYPE_ID"/>
+		<result property="menuTypeName" column="MENU_TYPE_NAME"/>
+		<result property="status" column="STATUS"/>
+		<result property="unit" column="UNIT"/>
+		<result property="minLimitUnit" column="MIN_LIMIT_UNIT"/>
+		<result property="filePath" column="FILE_PATH"/>
+		
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.MenuFood" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO MENU_FOOD ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="name != null"> ,NAME </if>	
+			<if test="nameNumber != null"> ,NAME_NUMBER </if>	
+			<if test="memo != null"> ,MEMO </if>	
+			<if test="price != null"> ,PRICE </if>	
+			<if test="creator != null"> ,CREATOR </if>	
+			<if test="modifer != null"> ,MODIFER </if>	
+			<if test="createTime != null"> ,CREATE_TIME </if>	
+			<if test="editTime != null"> ,EDIT_TIME </if>	
+			<if test="menuTypeId != null"> ,MENU_TYPE_ID </if>	
+			<if test="status != null"> ,STATUS </if>	
+			<if test="unit != null"> ,UNIT </if>	
+			<if test="minLimitUnit != null"> ,MIN_LIMIT_UNIT </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="name != null"> ,#{name} </if>		       
+			<if test="nameNumber != null"> ,#{nameNumber} </if>		          
+			<if test="memo != null"> ,#{memo} </if>		       
+			<if test="price != null"> ,#{price} </if>		       
+			<if test="creator != null"> ,#{creator} </if>		       
+			<if test="modifer != null"> ,#{modifer} </if>		       
+			<if test="createTime != null"> ,#{createTime} </if>		       
+			<if test="editTime != null"> ,#{editTime} </if>		       
+			<if test="menuTypeId != null"> ,#{menuTypeId} </if>		
+			<if test="status != null"> ,#{status} </if>	
+			<if test="unit != null"> ,#{unit} </if>		       
+			<if test="minLimitUnit != null"> ,#{minLimitUnit} </if>		       	       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM MENU_FOOD
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.MenuFood">  
+		UPDATE MENU_FOOD        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="name != null"> NAME = #{name}, </if>
+			<if test="nameNumber != null"> NAME_NUMBER = #{nameNumber}, </if>
+			<if test="memo != null"> MEMO = #{memo}, </if>
+			<if test="price != null"> PRICE = #{price}, </if>
+			<if test="creator != null"> CREATOR = #{creator}, </if>
+			<if test="modifer != null"> MODIFER = #{modifer}, </if>
+			<if test="createTime != null"> CREATE_TIME = #{createTime}, </if>
+			<if test="editTime != null"> EDIT_TIME = #{editTime}, </if>
+			<if test="menuTypeId != null"> MENU_TYPE_ID = #{menuTypeId}, </if>
+			<if test="status != null"> STATUS = #{status}, </if>
+			<if test="unit != null"> UNIT = #{unit}, </if>
+			<if test="minLimitUnit != null"> MIN_LIMIT_UNIT = #{minLimitUnit}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="MenuFood">  
+		SELECT 
+			A.ID,
+			A.NAME,
+			A.NAME_NUMBER,
+			A.MEMO,
+			A.PRICE,
+			A.CREATOR,
+			A.MODIFER,
+			A.CREATE_TIME,
+			A.EDIT_TIME,
+			A.MENU_TYPE_ID,
+			(SELECT B.TYPE_NAME FROM MENU_TYPE B WHERE B.ID = A.MENU_TYPE_ID) AS MENU_TYPE_NAME,
+			A.STATUS,
+			A.UNIT,
+			A.MIN_LIMIT_UNIT
+		FROM MENU_FOOD A
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="MenuFood">  
+		SELECT 
+			ID,
+			NAME,
+			NAME_NUMBER,
+			MEMO,
+			PRICE,
+			CREATOR,
+			MODIFER,
+			CREATE_TIME,
+			EDIT_TIME,
+			MENU_TYPE_ID,
+			(SELECT B.TYPE_NAME FROM MENU_TYPE B WHERE B.ID = A.MENU_TYPE_ID) AS MENU_TYPE_NAME,
+			STATUS,
+			UNIT,
+			MIN_LIMIT_UNIT,
+			(SELECT C.FILE_PATH FROM ANNEX C WHERE C.OBJ_ID = A.ID AND C.ANNEX_CATEGORYCODE=1006002 LIMIT 1) AS FILE_PATH
+		FROM MENU_FOOD  A
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="nameNumber != null"> AND NAME_NUMBER = #{nameNumber} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="price != null"> AND PRICE = #{price} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="modifer != null"> AND MODIFER = #{modifer} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="editTime != null"> AND EDIT_TIME = #{editTime} </if>
+			<if test="menuTypeId != null"> AND MENU_TYPE_ID = #{menuTypeId} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="unit != null"> AND UNIT = #{unit} </if>
+			<if test="minLimitUnit != null"> AND MIN_LIMIT_UNIT = #{minLimitUnit} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM MENU_FOOD
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="nameNumber != null"> AND NAME_NUMBER = #{nameNumber} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="price != null"> AND PRICE = #{price} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="modifer != null"> AND MODIFER = #{modifer} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="editTime != null"> AND EDIT_TIME = #{editTime} </if>
+			<if test="menuTypeId != null"> AND MENU_TYPE_ID = #{menuTypeId} </if>
+			<if test="unit != null"> AND UNIT = #{unit} </if>
+			<if test="minLimitUnit != null"> AND MIN_LIMIT_UNIT = #{minLimitUnit} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="MenuFood" >  
+		SELECT 
+			ID,
+			NAME,
+			NAME_NUMBER,
+			MEMO,
+			PRICE,
+			CREATOR,
+			MODIFER,
+			CREATE_TIME,
+			EDIT_TIME,
+			MENU_TYPE_ID,
+			UNIT,
+			MIN_LIMIT_UNIT
+		FROM MENU_FOOD
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="nameNumber != null"> AND NAME_NUMBER = #{nameNumber} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="price != null"> AND PRICE = #{price} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="modifer != null"> AND MODIFER = #{modifer} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="editTime != null"> AND EDIT_TIME = #{editTime} </if>
+			<if test="menuTypeId != null"> AND MENU_TYPE_ID = #{menuTypeId} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="unit != null"> AND UNIT = #{unit} </if>
+			<if test="minLimitUnit != null"> AND MIN_LIMIT_UNIT = #{minLimitUnit} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+	
+	<resultMap id="menuFoodInfo" type="java.util.HashMap">
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="nameNumber" column="NAME_NUMBER"/>
+		<result property="memo" column="MEMO"/>
+		<result property="price" column="PRICE"/>
+		<result property="creator" column="CREATOR"/>
+		<result property="modifer" column="MODIFER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="editTime" column="EDIT_TIME"/>
+		<result property="menuTypeId" column="MENU_TYPE_ID"/>
+		<result property="typeName" column="TYPE_NAME"/>
+		<result property="status" column="STATUS"/>
+		<result property="unit" column="UNIT"/>
+		<result property="filePath" column="FILE_PATH"/>
+		
+	</resultMap>
+	
+	<select id="getMenuFoodList" parameterType="java.util.Map" resultMap="menuFoodInfo">
+		SELECT 
+			A.ID,
+			A.NAME,
+			A.NAME_NUMBER,
+			A.MEMO,
+			A.PRICE,
+			A.CREATOR,
+			A.CREATE_TIME,
+			A.MODIFER,
+			A.EDIT_TIME,
+			A.MENU_TYPE_ID,
+			A.STATUS,
+			A.UNIT,
+			B.TYPE_NAME AS TYPE_NAME,
+			(SELECT C.FILE_PATH FROM ANNEX C WHERE C.OBJ_ID = A.ID AND C.ANNEX_CATEGORYCODE=1006002 LIMIT 1) AS FILE_PATH
+		FROM MENU_FOOD A,MENU_TYPE B
+		<where>
+			A.MENU_TYPE_ID = B.ID
+			<if test="menuTypeId != null"> AND A.MENU_TYPE_ID = #{menuTypeId} </if>
+			<if test="startPrice != null"> AND A.PRICE <![CDATA[ >= ]]> #{startPrice} </if>
+			<if test="endPrice != null"> AND A.PRICE <![CDATA[ <= ]]> #{endPrice} </if>
+			<if test="status != null"> AND A.STATUS = #{status} </if>
+			<if test="keyWord != null">
+				AND (
+					A.NAME LIKE '%${keyWord}%' OR 
+					A.NAME_NUMBER LIKE '%${keyWord}%' OR 
+					A.CREATOR LIKE '%${keyWord}%' 
+				)
+			</if>
+		</where>
+		ORDER BY A.MENU_TYPE_ID,A.EDIT_TIME DESC
+		Limit #{startrow} , #{pagesize}
+	</select>
+	
+	<select id="getMenuFoodListCount" parameterType="java.util.Map" resultType="java.lang.Integer"> 
+		SELECT COUNT(*) FROM 
+		(
+			SELECT 
+			A.ID,
+			A.NAME,
+			A.NAME_NUMBER,
+			A.MEMO,
+			A.PRICE,
+			A.CREATOR,
+			A.MENU_TYPE_ID,
+			A.STATUS,
+			B.TYPE_NAME AS TYPE_NAME
+		FROM MENU_FOOD A,MENU_TYPE B
+		<where>
+			A.MENU_TYPE_ID = B.ID
+			<if test="menuTypeId != null"> AND A.MENU_TYPE_ID = #{menuTypeId} </if>
+			<if test="startPrice != null"> AND A.PRICE <![CDATA[ >= ]]> #{startPrice} </if>
+			<if test="endPrice != null"> AND A.PRICE <![CDATA[ <= ]]> #{endPrice} </if>
+			<if test="status != null"> AND A.STATUS = #{status} </if>
+			<if test="keyWord != null">
+				AND (
+					A.NAME LIKE '%${keyWord}%' OR 
+					A.NAME_NUMBER LIKE '%${keyWord}%' OR 
+					A.CREATOR LIKE '%${keyWord}%' 
+				)
+			</if>
+		</where>
+		)Q
+	</select>
+	
+	<select id="getPhoneMenuFoodList" parameterType="java.util.Map" resultMap="menuFoodInfo">
+		SELECT 
+			ID,
+			NAME,
+			NAME_NUMBER,
+			PRICE,
+			UNIT,
+			STATUS
+		FROM MENU_FOOD
+		<where>
+			<if test="menuTypeId != null"> AND MENU_TYPE_ID = #{menuTypeId} </if>
+			<if test="keyWord != null">
+				AND (
+					NAME LIKE '%${keyWord}%' OR 
+					NAME_NUMBER LIKE '%${keyWord}%' 
+				)
+			</if>
+		</where>
+		ORDER BY MENU_TYPE_ID
+		Limit #{startrow} , #{pagesize}
+		
+	</select>
+	
+	<select id="getPhoneMenuFoodListCount" parameterType="java.util.Map" resultType="java.lang.Integer"> 
+		SELECT COUNT(*) 
+		FROM MENU_FOOD
+		<where>
+			<if test="menuTypeId != null"> AND MENU_TYPE_ID = #{menuTypeId} </if>
+			<if test="keyWord != null">
+				AND (
+					NAME LIKE '%${keyWord}%' OR 
+					NAME_NUMBER LIKE '%${keyWord}%' 
+				)
+			</if>
+		</where>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.SysRoleUserMapper">
+
+	<resultMap id="SysRoleUser" type="org.jrc.springfortune.entity.SysRoleUser">
+		<result property="id" column="ID"/>
+		<result property="roleId" column="ROLE_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="creator" column="CREATOR"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.SysRoleUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO SYS_ROLE_USER ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="roleId != null"> ,ROLE_ID </if>	
+			<if test="userId != null"> ,USER_ID </if>	
+			<if test="createTime != null"> ,CREATE_TIME </if>	
+			<if test="creator != null"> ,CREATOR </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="roleId != null"> ,#{roleId} </if>		       
+			<if test="userId != null"> ,#{userId} </if>		       
+			<if test="createTime != null"> ,#{createTime} </if>		       
+			<if test="creator != null"> ,#{creator} </if>		       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM SYS_ROLE_USER
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.SysRoleUser">  
+		UPDATE SYS_ROLE_USER        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="roleId != null"> ROLE_ID = #{roleId}, </if>
+			<if test="userId != null"> USER_ID = #{userId}, </if>
+			<if test="createTime != null"> CREATE_TIME = #{createTime}, </if>
+			<if test="creator != null"> CREATOR = #{creator}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="SysRoleUser">  
+		SELECT 
+			ID,
+			ROLE_ID,
+			USER_ID,
+			CREATE_TIME,
+			CREATOR
+		FROM SYS_ROLE_USER
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="SysRoleUser">  
+		SELECT 
+			ID,
+			ROLE_ID,
+			USER_ID,
+			CREATE_TIME,
+			CREATOR
+		FROM SYS_ROLE_USER
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="roleId != null"> AND ROLE_ID = #{roleId} </if>
+			<if test="userId != null"> AND USER_ID = #{userId} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM SYS_ROLE_USER
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="roleId != null"> AND ROLE_ID = #{roleId} </if>
+			<if test="userId != null"> AND USER_ID = #{userId} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="SysRoleUser" >  
+		SELECT 
+			ID,
+			ROLE_ID,
+			USER_ID,
+			CREATE_TIME,
+			CREATOR
+		FROM SYS_ROLE_USER
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="roleId != null"> AND ROLE_ID = #{roleId} </if>
+			<if test="userId != null"> AND USER_ID = #{userId} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+
+
+</mapper>

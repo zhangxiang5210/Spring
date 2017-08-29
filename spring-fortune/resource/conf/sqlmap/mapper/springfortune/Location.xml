@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.LocationMapper">
+
+	<resultMap id="Location" type="org.jrc.springfortune.entity.Location">
+		<result property="id" column="ID"/>
+		<result property="locationNumber" column="LOCATION_NUMBER"/>
+		<result property="status" column="STATUS"/>
+		<result property="billId" column="BILL_ID"/>
+		<result property="memo" column="MEMO"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.Location" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO LOCATION ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="locationNumber != null"> ,LOCATION_NUMBER </if>	
+			<if test="status != null"> ,STATUS </if>	
+			<if test="billId != null"> ,BILL_ID </if>	
+			<if test="memo != null"> ,MEMO </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="locationNumber != null"> ,#{locationNumber} </if>		       
+			<if test="status != null"> ,#{status} </if>		       
+			<if test="billId != null"> ,#{billId} </if>		       
+			<if test="memo != null"> ,#{memo} </if>		       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM LOCATION
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.Location">  
+		UPDATE LOCATION        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="locationNumber != null"> LOCATION_NUMBER = #{locationNumber}, </if>
+			<if test="status != null"> STATUS = #{status}, </if>
+			<if test="billId != null"> BILL_ID = #{billId}, </if>
+			<if test="memo != null"> MEMO = #{memo}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="Location">  
+		SELECT 
+			ID,
+			LOCATION_NUMBER,
+			STATUS,
+			BILL_ID,
+			MEMO
+		FROM LOCATION
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="Location">  
+		SELECT 
+			ID,
+			LOCATION_NUMBER,
+			STATUS,
+			BILL_ID,
+			MEMO
+		FROM LOCATION
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="noUse != null"> AND STATUS != 2 </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM LOCATION
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="Location" >  
+		SELECT 
+			ID,
+			LOCATION_NUMBER,
+			STATUS,
+			BILL_ID,
+			MEMO
+		FROM LOCATION
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+	
+	<resultMap type="java.util.HashMap" id="tableList">
+		<result property="id" column="ID"/>
+		<result property="locationNumber" column="LOCATION_NUMBER"/>
+		<result property="status" column="STATUS"/>
+		<result property="billId" column="BILL_ID"/>
+		<result property="memo" column="MEMO"/>
+	</resultMap>
+	
+	<select id="getTableList" resultMap="tableList">
+		SELECT 
+			ID,
+			LOCATION_NUMBER,
+			STATUS,
+			BILL_ID,
+			MEMO
+		FROM LOCATION
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	
+	</select>
+	
+	<select id="getTableListCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM LOCATION
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+		</where>
+	</select>
+
+
+</mapper>

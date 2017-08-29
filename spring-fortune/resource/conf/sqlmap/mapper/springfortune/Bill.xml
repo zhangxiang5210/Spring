@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.BillMapper">
+
+	<resultMap id="Bill" type="org.jrc.springfortune.entity.Bill">
+		<result property="id" column="ID"/>
+		<result property="locationNumber" column="LOCATION_NUMBER"/>
+		<result property="billNumber" column="BILL_NUMBER"/>
+		<result property="status" column="STATUS"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="receiveTime" column="RECEIVE_TIME"/>
+		<result property="receiveLonginName" column="RECEIVE_LONGIN_NAME"/>
+		<result property="arMoney" column="AR_MONEY"/>
+		<result property="payMoney" column="PAY_MONEY"/>
+		<result property="creator" column="CREATOR"/>
+		<result property="receiveName" column="RECEIVE_NAME"/>
+		<result property="memo" column="MEMO"/>
+		<result property="type" column="TYPE"/>
+		<result property="receiveType" column="RECEIVE_TYPE"/>
+		<result property="receiveWay" column="RECEIVE_WAY"/>
+		<result property="userNum" column="USER_NUM"/>
+		<result property="billMemo" column="BILL_MEMO"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.Bill" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO BILL ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="locationNumber != null"> ,LOCATION_NUMBER </if>	
+			<if test="billNumber != null"> ,BILL_NUMBER </if>	
+			<if test="status != null"> ,STATUS </if>	
+			<if test="createTime != null"> ,CREATE_TIME </if>	
+			<if test="receiveTime != null"> ,RECEIVE_TIME </if>	
+			<if test="receiveLonginName != null"> ,RECEIVE_LONGIN_NAME </if>	
+			<if test="arMoney != null"> ,AR_MONEY </if>	
+			<if test="payMoney != null"> ,PAY_MONEY </if>	
+			<if test="creator != null"> ,CREATOR </if>	
+			<if test="receiveName != null"> ,RECEIVE_NAME </if>	
+			<if test="memo != null"> ,MEMO </if>	
+			<if test="type != null"> ,TYPE </if>	
+			<if test="receiveType != null"> ,RECEIVE_TYPE </if>	
+			<if test="receiveWay != null"> ,RECEIVE_WAY </if>	
+			<if test="userNum != null"> ,USER_NUM </if>	
+			<if test="billMemo != null"> ,BILL_MEMO </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="locationNumber != null"> ,#{locationNumber} </if>		       
+			<if test="billNumber != null"> ,#{billNumber} </if>		       
+			<if test="status != null"> ,#{status} </if>		       
+			<if test="createTime != null"> ,#{createTime} </if>		       
+			<if test="receiveTime != null"> ,#{receiveTime} </if>		       
+			<if test="receiveLonginName != null"> ,#{receiveLonginName} </if>		       
+			<if test="arMoney != null"> ,#{arMoney} </if>		       
+			<if test="payMoney != null"> ,#{payMoney} </if>		       
+			<if test="creator != null"> ,#{creator} </if>		       
+			<if test="receiveName != null"> ,#{receiveName} </if>		       
+			<if test="memo != null"> ,#{memo} </if>		       
+			<if test="type != null"> ,#{type} </if>		       
+			<if test="receiveType != null"> ,#{receiveType} </if>		       
+			<if test="receiveWay != null"> ,#{receiveWay} </if>
+			<if test="userNum != null"> ,#{userNum} </if>
+			<if test="billMemo != null"> ,#{billMemo} </if>		       		 		       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM BILL
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.Bill">  
+		UPDATE BILL        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="locationNumber != null"> LOCATION_NUMBER = #{locationNumber}, </if>
+			<if test="billNumber != null"> BILL_NUMBER = #{billNumber}, </if>
+			<if test="status != null"> STATUS = #{status}, </if>
+			<if test="createTime != null"> CREATE_TIME = #{createTime}, </if>
+			<if test="receiveTime != null"> RECEIVE_TIME = #{receiveTime}, </if>
+			<if test="receiveLonginName != null"> RECEIVE_LONGIN_NAME = #{receiveLonginName}, </if>
+			<if test="arMoney != null"> AR_MONEY = #{arMoney}, </if>
+			<if test="payMoney != null"> PAY_MONEY = #{payMoney}, </if>
+			<if test="creator != null"> CREATOR = #{creator}, </if>
+			<if test="receiveName != null"> RECEIVE_NAME = #{receiveName}, </if>
+			<if test="memo != null"> MEMO = #{memo}, </if>
+			<if test="type != null"> TYPE = #{type}, </if>
+			<if test="receiveType != null"> RECEIVE_TYPE = #{receiveType}, </if>
+			<if test="receiveWay != null"> RECEIVE_WAY = #{receiveWay}, </if>
+			<if test="userNum != null"> USER_NUM = #{userNum}, </if>
+			<if test="billMemo != null"> BILL_MEMO = #{billMemo}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="Bill">  
+		SELECT 
+			ID,
+			LOCATION_NUMBER,
+			BILL_NUMBER,
+			STATUS,
+			CREATE_TIME,
+			RECEIVE_TIME,
+			RECEIVE_LONGIN_NAME,
+			AR_MONEY,
+			PAY_MONEY,
+			CREATOR,
+			RECEIVE_NAME,
+			MEMO,
+			TYPE,
+			RECEIVE_TYPE,
+			RECEIVE_WAY,
+			USER_NUM,
+			BILL_MEMO
+		FROM BILL
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="Bill">  
+		SELECT 
+			ID,
+			LOCATION_NUMBER,
+			BILL_NUMBER,
+			STATUS,
+			CREATE_TIME,
+			RECEIVE_TIME,
+			RECEIVE_LONGIN_NAME,
+			AR_MONEY,
+			PAY_MONEY,
+			CREATOR,
+			RECEIVE_NAME,
+			MEMO,
+			TYPE,
+			RECEIVE_TYPE,
+			RECEIVE_WAY,
+			USER_NUM,
+			BILL_MEMO
+		FROM BILL
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="billNumber != null"> AND BILL_NUMBER = #{billNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="receiveTime != null"> AND RECEIVE_TIME = #{receiveTime} </if>
+			<if test="receiveLonginName != null"> AND RECEIVE_LONGIN_NAME = #{receiveLonginName} </if>
+			<if test="arMoney != null"> AND AR_MONEY = #{arMoney} </if>
+			<if test="payMoney != null"> AND PAY_MONEY = #{payMoney} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="receiveName != null"> AND RECEIVE_NAME = #{receiveName} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="type != null"> AND TYPE = #{type} </if>
+			<if test="receiveType != null"> AND RECEIVE_TYPE = #{receiveType} </if>
+			<if test="receiveWay != null"> AND RECEIVE_WAY = #{receiveWay} </if>
+			<if test="userNum != null"> AND USER_NUM = #{userNum} </if>
+			<if test="billMemo != null"> AND BILL_MEMO = #{billMemo} </if>
+			<if test="keyWord != null">
+				AND (
+					LOCATION_NUMBER LIKE '%${keyWord}%' OR 
+					RECEIVE_LONGIN_NAME LIKE '%${keyWord}%' OR 
+					BILL_NUMBER LIKE '%${keyWord}%'
+				)
+			</if>
+			<if test="startDate != null"> AND CREATE_TIME <![CDATA[ >= ]]> #{startDate} </if>
+	 		<if test="endDate != null"> AND CREATE_TIME <![CDATA[ <= ]]> #{endDate} </if>
+			<if test="orderBy != null"> AND 
+			   #{orderBy} = #{orderWay}
+			</if>
+			
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM BILL
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="billNumber != null"> AND BILL_NUMBER = #{billNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="receiveTime != null"> AND RECEIVE_TIME = #{receiveTime} </if>
+			<if test="receiveLonginName != null"> AND RECEIVE_LONGIN_NAME = #{receiveLonginName} </if>
+			<if test="arMoney != null"> AND AR_MONEY = #{arMoney} </if>
+			<if test="payMoney != null"> AND PAY_MONEY = #{payMoney} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="receiveName != null"> AND RECEIVE_NAME = #{receiveName} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="type != null"> AND TYPE = #{type} </if>
+			<if test="receiveType != null"> AND RECEIVE_TYPE = #{receiveType} </if>
+			<if test="receiveWay != null"> AND RECEIVE_WAY = #{receiveWay} </if>
+			<if test="userNum != null"> AND USER_NUM = #{userNum} </if>
+			<if test="keyWord != null">
+				AND (
+					LOCATION_NUMBER LIKE '%${keyWord}%' OR 
+					RECEIVE_LONGIN_NAME LIKE '%${keyWord}%' OR 
+					BILL_NUMBER LIKE '%${keyWord}%'
+				)
+			</if>
+			<if test="billMemo != null"> AND BILL_MEMO = #{billMemo} </if>
+			<if test="startDate != null"> AND CREATE_TIME <![CDATA[ >= ]]> #{startDate} </if>
+	 		<if test="endDate != null"> AND CREATE_TIME <![CDATA[ <= ]]> #{endDate} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="Bill" >  
+		SELECT 
+			ID,
+			LOCATION_NUMBER,
+			BILL_NUMBER,
+			STATUS,
+			CREATE_TIME,
+			RECEIVE_TIME,
+			RECEIVE_LONGIN_NAME,
+			AR_MONEY,
+			PAY_MONEY,
+			CREATOR,
+			RECEIVE_NAME,
+			MEMO,
+			TYPE,
+			RECEIVE_TYPE,
+			RECEIVE_WAY,
+			USER_NUM,
+			BILL_MEMO
+		FROM BILL
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="locationNumber != null"> AND LOCATION_NUMBER = #{locationNumber} </if>
+			<if test="billNumber != null"> AND BILL_NUMBER = #{billNumber} </if>
+			<if test="status != null"> AND STATUS = #{status} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="receiveTime != null"> AND RECEIVE_TIME = #{receiveTime} </if>
+			<if test="receiveLonginName != null"> AND RECEIVE_LONGIN_NAME = #{receiveLonginName} </if>
+			<if test="arMoney != null"> AND AR_MONEY = #{arMoney} </if>
+			<if test="payMoney != null"> AND PAY_MONEY = #{payMoney} </if>
+			<if test="creator != null"> AND CREATOR = #{creator} </if>
+			<if test="receiveName != null"> AND RECEIVE_NAME = #{receiveName} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="type != null"> AND TYPE = #{type} </if>
+			<if test="receiveType != null"> AND RECEIVE_TYPE = #{receiveType} </if>
+			<if test="receiveWay != null"> AND RECEIVE_WAY = #{receiveWay} </if>
+			<if test="userNum != null"> AND USER_NUM = #{userNum} </if>
+			<if test="keyWord != null">
+				AND (
+					LOCATION_NUMBER LIKE '%${keyWord}%' OR 
+					RECEIVE_LONGIN_NAME LIKE '%${keyWord}%' OR 
+					BILL_NUMBER LIKE '%${keyWord}%'
+				)
+			</if>
+			<if test="billMemo != null"> AND BILL_MEMO = #{billMemo} </if>
+			<if test="startDate != null"> AND CREATE_TIME <![CDATA[ >= ]]> #{startDate} </if>
+	 		<if test="endDate != null"> AND CREATE_TIME <![CDATA[ <= ]]> #{endDate} </if>
+		</where>
+		ORDER BY CREATE_TIME DESC
+		Limit #{startrow} , #{pagesize}
+	</select>
+
+
+</mapper>

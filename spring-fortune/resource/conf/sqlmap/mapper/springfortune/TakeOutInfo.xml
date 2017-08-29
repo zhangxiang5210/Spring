@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jrc.springfortune.mapper.TakeOutInfoMapper">
+
+	<resultMap id="TakeOutInfo" type="org.jrc.springfortune.entity.TakeOutInfo">
+		<result property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="pnhone" column="PNHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="memo" column="MEMO"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="billId" column="BILL_ID"/>
+	</resultMap>
+	
+	
+
+
+	<insert id="insert" parameterType="org.jrc.springfortune.entity.TakeOutInfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO TAKE_OUT_INFO ( 
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,ID </if>	
+			<if test="name != null"> ,NAME </if>	
+			<if test="pnhone != null"> ,PNHONE </if>	
+			<if test="address != null"> ,ADDRESS </if>	
+			<if test="memo != null"> ,MEMO </if>	
+			<if test="createTime != null"> ,CREATE_TIME </if>	
+			<if test="billId != null"> ,BILL_ID </if>	
+			</trim>
+		) VALUES (
+			<trim prefixOverrides=",">
+			<if test="id != null"> ,#{id} </if>		       
+			<if test="name != null"> ,#{name} </if>		       
+			<if test="pnhone != null"> ,#{pnhone} </if>		       
+			<if test="address != null"> ,#{address} </if>		       
+			<if test="memo != null"> ,#{memo} </if>		       
+			<if test="createTime != null"> ,#{createTime} </if>	
+			<if test="billId != null"> ,#{billId} </if>		       	       
+			</trim>
+		)
+	</insert>
+	
+	<delete id="delete">  
+		DELETE FROM TAKE_OUT_INFO
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="org.jrc.springfortune.entity.TakeOutInfo">  
+		UPDATE TAKE_OUT_INFO        
+		<set>
+			<if test="id != null"> ID = #{id}, </if>
+			<if test="name != null"> NAME = #{name}, </if>
+			<if test="pnhone != null"> PNHONE = #{pnhone}, </if>
+			<if test="address != null"> ADDRESS = #{address}, </if>
+			<if test="memo != null"> MEMO = #{memo}, </if>
+			<if test="createTime != null"> CREATE_TIME = #{createTime}, </if>
+			<if test="billId != null"> BILL_ID = #{billId}, </if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="get" parameterType="java.util.Map" resultMap="TakeOutInfo">  
+		SELECT 
+			ID,
+			NAME,
+			PNHONE,
+			ADDRESS,
+			MEMO,
+			CREATE_TIME,
+			BILL_ID
+		FROM TAKE_OUT_INFO
+		<where>
+			<if test="id != null"> ID = #{id} </if>
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map" resultMap="TakeOutInfo">  
+		SELECT 
+			ID,
+			NAME,
+			PNHONE,
+			ADDRESS,
+			MEMO,
+			CREATE_TIME,
+			BILL_ID
+		FROM TAKE_OUT_INFO
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="pnhone != null"> AND PNHONE = #{pnhone} </if>
+			<if test="address != null"> AND ADDRESS = #{address} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">  
+		SELECT COUNT(*) FROM TAKE_OUT_INFO
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="pnhone != null"> AND PNHONE = #{pnhone} </if>
+			<if test="address != null"> AND ADDRESS = #{address} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+		</where>
+	</select>
+
+
+	<select id="getSplitList" parameterType="java.util.Map" resultMap="TakeOutInfo" >  
+		SELECT 
+			ID,
+			NAME,
+			PNHONE,
+			ADDRESS,
+			MEMO,
+			CREATE_TIME,BILL_ID
+		FROM TAKE_OUT_INFO
+		<where>
+			<if test="id != null"> AND ID = #{id} </if>
+			<if test="name != null"> AND NAME = #{name} </if>
+			<if test="pnhone != null"> AND PNHONE = #{pnhone} </if>
+			<if test="address != null"> AND ADDRESS = #{address} </if>
+			<if test="memo != null"> AND MEMO = #{memo} </if>
+			<if test="createTime != null"> AND CREATE_TIME = #{createTime} </if>
+			<if test="billId != null"> AND BILL_ID = #{billId} </if>
+		</where>
+		Limit #{startrow} , #{pagesize}
+	</select>
+
+
+</mapper>
